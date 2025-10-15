@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Grace - Business Card</title>
-  <link rel="shortcut icon" href="images/Cursor_Click_Clover.PNG">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-  
+  <link rel="shortcut icon" href="images/Cursor_Click_Clover.PNG" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+  />
+
   <style>
     * {
       margin: 0;
@@ -14,7 +17,6 @@
       box-sizing: border-box;
     }
 
-    /* Site container */
     body {
       font-family: 'Trebuchet MS', Verdana, Geneva, sans-serif;
       display: flex;
@@ -23,33 +25,69 @@
       min-height: 100vh;
       background: url('images/BG_Grass.PNG') repeat-x center bottom fixed;
       background-color: #b7c9db;
-      /* background-color: #cad9cb; */
-      cursor: url('images/Cursor_Hover_Clover.PNG') 3 3, auto; /* custom body cursor */
+      cursor: url('images/Cursor_Hover_Clover.PNG') 3 3, auto;
+      overflow-x: hidden;
     }
 
-    /* Card container */
     .business-card {
       display: flex;
       flex-direction: row;
       align-items: center;
+      justify-content: center;
       width: 600px;
       height: 350px;
-      border-radius: 0px;
+      border-radius: 0;
       background: linear-gradient(to bottom, #ffffff 0%, #f7f9fb 100%);
       box-shadow: 10px 10px 15px rgba(31, 37, 33, 0.4);
       overflow: hidden;
       padding: 1rem;
       position: relative;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      z-index: 0;
+      transform-origin: center;
     }
 
-    /* Hover "pick-up card" effect */
+    .business-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -150%;
+      width: 280%;
+      height: 100%;
+      background: linear-gradient(
+        115deg,
+        rgba(255, 255, 255, 0) 0%,
+        rgba(255, 255, 255, 0.12) 35%,
+        rgba(255, 255, 255, 0.35) 50%,
+        rgba(255, 255, 255, 0.12) 65%,
+        rgba(255, 255, 255, 0) 100%
+      );
+      opacity: 0;
+      transform: skewX(-20deg);
+      pointer-events: none;
+      z-index: 10;
+      filter: blur(1.2px);
+      transition: opacity 0.3s ease;
+    }
+
+    @keyframes shine {
+      0% { left: -150%; opacity: 0; }
+      10% { opacity: 0.25; }
+      50% { left: 120%; opacity: 0.4; }
+      90% { opacity: 0.15; }
+      100% { left: 160%; opacity: 0; }
+    }
+
+    .business-card:hover::before {
+      opacity: 1;
+      animation: shine 1.8s ease-in-out forwards;
+    }
+
     .business-card:hover {
-      transform: translateY(-5px) rotate(-0.5deg);
-      box-shadow: 0 25px 40px rgba(31, 37, 33, 0.3);
+      transform: scale(var(--scale, 1)) translateY(-5px) rotate(-0.3deg);
+      box-shadow: 0 25px 40px rgba(31, 37, 33, 0.25);
     }
 
-    /* Card - bottom bar */
     .business-card::after {
       content: '';
       position: absolute;
@@ -57,14 +95,10 @@
       left: 0;
       width: 100%;
       height: 80px;
-      /* background: linear-gradient(90deg, #436687, #294760); */
       background: linear-gradient(90deg, #5f8094, #436687);
-      border-bottom-left-radius: 1px;
-      border-bottom-right-radius: 1px;
       z-index: 1;
     }
 
-    /* Avatar container */
     .avatar {
       height: 230px;
       margin-right: 50px;
@@ -75,14 +109,15 @@
       cursor: url('images/Cursor_Click_Clover.PNG') 3 3, auto;
       position: relative;
       z-index: 2;
+      flex-shrink: 0;
     }
 
-    /* Info container */
     .info {
       display: flex;
       flex-direction: column;
       justify-content: center;
-      flex-grow: 1;
+      flex: 1;
+      min-width: 0;
       position: relative;
       z-index: 3;
     }
@@ -103,6 +138,9 @@
       font-size: 1rem;
       color: #555;
       margin-bottom: 0.5rem;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .socials {
@@ -127,35 +165,46 @@
       text-align: right;
       font-size: 0.8rem;
       color: #fff;
-      margin-top: auto;
-      position: relative;
+      position: absolute;
+      bottom: 10px;
+      right: 16px;
       z-index: 3;
-      /* cursor: url('images/Cursor_Click_Clover.PNG'), auto; */
     }
 
-    @media (max-width: 550px) {
-      .business-card {
-        flex-direction: column;
-        width: 90%;
-        height: auto;
-        padding: 1rem;
-      }
+    @media (max-width: 700px) {
+      .business-card { transform: scale(0.9); }
+      .business-card:hover { transform: scale(0.9); }
+    }
 
-      .avatar {
-        margin-right: 0;
-        margin-bottom: 0.5rem;
-      }
+    @media (max-width: 600px) {
+      .business-card { transform: scale(0.8); }
+      .business-card:hover { transform: scale(0.8); }
+    }
 
-      footer {
-        text-align: center;
-        margin-top: 0.5rem;
-      }
+    @media (max-width: 500px) {
+      .business-card { transform: scale(0.7); }
+      .business-card:hover { transform: scale(0.7); }
+    }
+
+    @media (max-width: 400px) {
+      .business-card { transform: scale(0.6); }
+      .business-card:hover { transform: scale(0.6); }
+    }
+
+    @media (max-width: 320px) {
+      .business-card { transform: scale(0.5); }
+      .business-card:hover { transform: scale(0.5); }
     }
   </style>
 </head>
 <body>
   <div class="business-card">
-    <img src="images/Avatar.PNG" alt="Grace Profile Photo" class="avatar" id="avatar">
+    <img
+      src="images/Avatar.PNG"
+      alt="Grace Profile Photo"
+      class="avatar"
+      id="avatar"
+    />
     <div class="info">
       <h1>Grace Choe</h1>
       <p class="subtitle">Software Engineer</p>
@@ -178,7 +227,7 @@
       avatar.src = 'images/Avatar_Blink.PNG';
       setTimeout(() => {
         avatar.src = originalSrc;
-      }, 300); // Revert after 0.3 seconds
+      }, 300);
     });
   </script>
 </body>
