@@ -27,7 +27,7 @@
       background: url('images/BG_Grass.PNG') repeat-x center bottom fixed;
       background-color: #b7c9db;
       cursor: url('images/Cursor_Hover_Clover.PNG') 3 3, auto;
-      overflow-x: hidden;
+      overflow: hidden;
     }
 
     #rotate-overlay {
@@ -53,7 +53,7 @@
       text-align: center;
       padding: 2rem;
     }
-    
+
     .business-card {
       display: flex;
       align-items: center;
@@ -172,16 +172,18 @@
       color: white;
       z-index: 3;
     }
-    
+
     body.is-mobile {
-      background: white;
+      background: #cbe0f2;
     }
 
     body.is-mobile .business-card {
-      width: 100vw;
-      height: 100vh;
+      background: #cbe0f2;
+      width: 600px;
+      height: 350px;
       box-shadow: none;
-      transform: none;
+      transform: rotate(90deg);
+      transition: none;
     }
 
     body.is-mobile .business-card::before,
@@ -190,7 +192,7 @@
     }
 
     body.is-mobile .business-card:hover {
-      transform: none;
+      transform: rotate(90deg);
       box-shadow: none;
     }
 
@@ -202,6 +204,7 @@
 </head>
 
 <body>
+
   <div id="rotate-overlay">
     <div class="rotate-message">
       Please rotate your phone
