@@ -178,21 +178,32 @@
     }
 
     body.is-mobile .business-card {
-      background: #cbe0f2;
       width: 600px;
       height: 350px;
+      background: linear-gradient(to bottom, #ffffff 0%, #f7f9fb 100%);
       box-shadow: none;
-      transform: rotate(90deg);
+      display: flex;
+      align-items: center;
+      padding: 1rem;
+      position: relative;
+      overflow: hidden;
+
+      transform: rotate(90deg) translateY(-125px);
+      transform-origin: center;
+
       transition: none;
     }
 
-    body.is-mobile .business-card::before,
-    body.is-mobile .business-card::after {
+    body.is-mobile .business-card::before {
       display: none;
     }
 
+    body.is-mobile .business-card::after {
+      display: block;
+    }
+
     body.is-mobile .business-card:hover {
-      transform: rotate(90deg);
+      transform: rotate(90deg) translateY(-125px);
       box-shadow: none;
     }
 
@@ -220,7 +231,7 @@
     />
 
     <div class="info">
-      <h1>Grace Choe</h1>
+      <h1>Grace</h1>
       <p class="subtitle">Software Engineer</p>
       <p class="bio">Innovative | Curious | Driven</p>
 
@@ -228,13 +239,13 @@
         <a href="https://www.linkedin.com/in/gracec3/" target="_blank">
           <i class="fab fa-linkedin"></i>
         </a>
-        <a href="https://github.com/gechoe" target="_blank">
+        <a href="https://github.com/ge" target="_blank">
           <i class="fab fa-github"></i>
         </a>
       </div>
     </div>
 
-    <footer>&copy; 2025 Grace Choe</footer>
+    <footer>&copy; 2025 Grace</footer>
   </div>
 
   <script>
