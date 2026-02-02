@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Grace - Business Card</title>
+  <title>Grace's Business Card</title>
+
   <link rel="shortcut icon" href="images/Cursor_Click_Clover.PNG" />
   <link
     rel="stylesheet"
@@ -29,22 +30,41 @@
       overflow-x: hidden;
     }
 
-    .business-card {
-      display: flex;
-      flex-direction: row;
+    #rotate-overlay {
+      position: fixed;
+      inset: 0;
+      background: white;
+      display: none;
       align-items: center;
       justify-content: center;
+      z-index: 9999;
+      opacity: 1;
+      transition: opacity 1s ease;
+    }
+
+    #rotate-overlay.fade-out {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .rotate-message {
+      font-size: 1.4rem;
+      color: #163e62;
+      text-align: center;
+      padding: 2rem;
+    }
+    
+    .business-card {
+      display: flex;
+      align-items: center;
       width: 600px;
       height: 350px;
-      border-radius: 0;
       background: linear-gradient(to bottom, #ffffff 0%, #f7f9fb 100%);
       box-shadow: 10px 10px 15px rgba(31, 37, 33, 0.4);
-      overflow: hidden;
       padding: 1rem;
       position: relative;
+      overflow: hidden;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
-      z-index: 0;
-      transform-origin: center;
     }
 
     .business-card::before {
@@ -64,10 +84,8 @@
       );
       opacity: 0;
       transform: skewX(-20deg);
-      pointer-events: none;
-      z-index: 10;
       filter: blur(1.2px);
-      transition: opacity 0.3s ease;
+      pointer-events: none;
     }
 
     @keyframes shine {
@@ -84,7 +102,7 @@
     }
 
     .business-card:hover {
-      transform: scale(var(--scale, 1)) translateY(-5px) rotate(-0.3deg);
+      transform: translateY(-5px) rotate(-0.3deg);
       box-shadow: 0 25px 40px rgba(31, 37, 33, 0.25);
     }
 
@@ -101,46 +119,31 @@
 
     .avatar {
       height: 230px;
-      margin-right: 50px;
-      margin-left: 45px;
-      margin-top: 12px;
-      object-fit: contain;
-      object-position: center;
+      margin: 12px 50px 0 45px;
       cursor: url('images/Cursor_Click_Clover.PNG') 3 3, auto;
-      position: relative;
       z-index: 2;
-      flex-shrink: 0;
     }
 
     .info {
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      flex: 1;
-      min-width: 0;
-      position: relative;
       z-index: 3;
     }
 
     h1 {
       font-size: 2rem;
       color: #163e62;
-      margin-bottom: 0.2rem;
     }
 
     .subtitle {
       font-size: 1.2rem;
       color: #3a648c;
-      margin-bottom: 0.2rem;
     }
 
     .bio {
       font-size: 1rem;
       color: #555;
-      margin-bottom: 0.5rem;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      margin-top: 0.3rem;
     }
 
     .socials {
@@ -162,42 +165,49 @@
     }
 
     footer {
-      text-align: right;
-      font-size: 0.8rem;
-      color: #fff;
       position: absolute;
       bottom: 10px;
       right: 16px;
+      font-size: 0.8rem;
+      color: white;
       z-index: 3;
     }
-
-    @media (max-width: 700px) {
-      .business-card { transform: scale(0.9); }
-      .business-card:hover { transform: scale(0.9); }
+    
+    body.is-mobile {
+      background: white;
     }
 
-    @media (max-width: 600px) {
-      .business-card { transform: scale(0.8); }
-      .business-card:hover { transform: scale(0.8); }
+    body.is-mobile .business-card {
+      width: 100vw;
+      height: 100vh;
+      box-shadow: none;
+      transform: none;
     }
 
-    @media (max-width: 500px) {
-      .business-card { transform: scale(0.7); }
-      .business-card:hover { transform: scale(0.7); }
+    body.is-mobile .business-card::before,
+    body.is-mobile .business-card::after {
+      display: none;
     }
 
-    @media (max-width: 400px) {
-      .business-card { transform: scale(0.6); }
-      .business-card:hover { transform: scale(0.6); }
+    body.is-mobile .business-card:hover {
+      transform: none;
+      box-shadow: none;
     }
 
-    @media (max-width: 320px) {
-      .business-card { transform: scale(0.5); }
-      .business-card:hover { transform: scale(0.5); }
+    body.is-mobile .socials a:hover {
+      transform: none;
+      color: #3a648c;
     }
   </style>
 </head>
+
 <body>
+  <div id="rotate-overlay">
+    <div class="rotate-message">
+      Please rotate your phone
+    </div>
+  </div>
+
   <div class="business-card">
     <img
       src="images/Avatar.PNG"
@@ -205,29 +215,48 @@
       class="avatar"
       id="avatar"
     />
+
     <div class="info">
       <h1>Grace Choe</h1>
       <p class="subtitle">Software Engineer</p>
       <p class="bio">Innovative | Curious | Driven</p>
 
       <div class="socials">
-        <a href="https://www.linkedin.com/in/gracec3/" target="_blank"><i class="fab fa-linkedin"></i></a>
-        <a href="https://github.com/gechoe" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="https://www.linkedin.com/in/gracec3/" target="_blank">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://github.com/gechoe" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
       </div>
     </div>
+
     <footer>&copy; 2025 Grace Choe</footer>
   </div>
 
   <script>
     const avatar = document.getElementById('avatar');
     const originalSrc = avatar.src;
+    const overlay = document.getElementById('rotate-overlay');
 
     avatar.addEventListener('click', () => {
       avatar.src = 'images/Avatar_Blink.PNG';
-      setTimeout(() => {
-        avatar.src = originalSrc;
-      }, 300);
+      setTimeout(() => avatar.src = originalSrc, 300);
     });
+
+    function isMobileDevice() {
+      return /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+    }
+
+    if (isMobileDevice()) {
+      document.body.classList.add('is-mobile');
+
+      if (window.innerHeight > window.innerWidth) {
+        overlay.style.display = 'flex';
+        setTimeout(() => overlay.classList.add('fade-out'), 6000);
+      }
+    }
   </script>
+
 </body>
 </html>
