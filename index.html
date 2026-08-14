@@ -157,47 +157,81 @@
       position: absolute;
       top: 50%;
       left: 50%;
-      width: 100dvh;
-      height: 100dvw;
-      max-width: 100dvh;
-      max-height: 100dvw;
       background: #ffffff;
       box-shadow: none;
       display: flex;
       align-items: center;
       justify-content: center;
       overflow: hidden;
-
-      transform: translate(-50%, -50%) rotate(90deg);
       transform-origin: center;
-
       transition: none;
-    }
-
-    body.is-mobile .avatar,
-    body.is-mobile .info {
-      transform: translateX(-20px);
-    }
-
-    body.is-mobile .business-card::before {
-      display: none;
-    }
-
-    body.is-mobile .business-card::after {
-      display: block;
-      height: 100px;
-    }
-
-    @media (hover: hover) and (pointer: fine) {
-      body.is-mobile .business-card:hover {
-        transform: translate(-50%, -50%) rotate(90deg);
-        box-shadow: none;
-      }
     }
 
     body.is-mobile .socials a:hover {
       transform: none;
       color: #3a648c;
+    }
+
+    @media (orientation: portrait) {
+      body.is-mobile .business-card {
+        width: 100dvh;
+        height: 100dvw;
+        max-width: 100dvh;
+        max-height: 100dvw;
+        transform: translate(-50%, -50%) rotate(90deg);
+      }
+
+      body.is-mobile .avatar,
+      body.is-mobile .info {
+        transform: translateX(-20px);
+      }
+
+      body.is-mobile .business-card::before {
+        display: none;
+      }
+
+      body.is-mobile .business-card::after {
+        display: block;
+        height: 100px;
+      }
+
+      @media (hover: hover) and (pointer: fine) {
+        body.is-mobile .business-card:hover {
+          transform: translate(-50%, -50%) rotate(90deg);
+          box-shadow: none;
+        }
+      }
+    }
+
+    @media (orientation: landscape) {
+      body.is-mobile .business-card {
+        width: 100dvw;
+        height: 100dvh;
+        max-width: 100dvw;
+        max-height: 100dvh;
+        transform: translate(-50%, -50%);
+      }
+
+      body.is-mobile .avatar,
+      body.is-mobile .info {
+        transform: none;
+      }
+
+      body.is-mobile .business-card::before {
+        display: none;
+      }
+
+      body.is-mobile .business-card::after {
+        display: block;
+        height: 80px;
+      }
+
+      @media (hover: hover) and (pointer: fine) {
+        body.is-mobile .business-card:hover {
+          transform: translate(-50%, -50%);
+          box-shadow: none;
+        }
+      }
     }
   </style>
 </head>
