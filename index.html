@@ -30,30 +30,6 @@
       overflow: hidden;
     }
 
-    #rotate-overlay {
-      position: fixed;
-      inset: 0;
-      background: white;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-      opacity: 1;
-      transition: opacity 1s ease;
-    }
-
-    #rotate-overlay.fade-out {
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .rotate-message {
-      font-size: 1.4rem;
-      color: #163e62;
-      text-align: center;
-      padding: 2rem;
-    }
-
     .business-card {
       display: flex;
       align-items: center;
@@ -173,25 +149,29 @@
       z-index: 3;
     }
 
+    /* ---- Mobile: always render the card rotated 90°, filling the
+       viewport, regardless of how the phone is physically held ---- */
+
     body.is-mobile {
       background: #cbe0f2;
     }
 
     body.is-mobile .business-card {
-      width: 100vh;
-      height: 100vw;
-      max-width: 100%;
-      max-height: 100%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 100dvh;
+      height: 100dvw;
+      max-width: 100dvh;
+      max-height: 100dvw;
       background: linear-gradient(to bottom, #cbe0f2 0%, #c7ddf0 100%);
       box-shadow: none;
       display: flex;
       align-items: center;
       justify-content: center;
-      /* padding: 1rem; */
-      position: absolute;
       overflow: hidden;
 
-      transform: rotate(90deg);
+      transform: translate(-50%, -50%) rotate(90deg);
       transform-origin: center;
 
       transition: none;
@@ -205,9 +185,15 @@
       display: block;
     }
 
-    body.is-mobile .business-card:hover {
-      transform: rotate(90deg) translate(-50%, -50%);
-      box-shadow: none;
+    /* Only re-apply a hover look on devices that truly have hover
+       (mouse/trackpad) — never on touchscreens, where :hover can get
+       "stuck" after a tap and otherwise causes the card to jump.
+       Also keep the SAME translate as the base state so nothing shifts. */
+    @media (hover: hover) and (pointer: fine) {
+      body.is-mobile .business-card:hover {
+        transform: translate(-50%, -50%) rotate(90deg);
+        box-shadow: none;
+      }
     }
 
     body.is-mobile .socials a:hover {
@@ -218,13 +204,6 @@
 </head>
 
 <body>
-
-  <div id="rotate-overlay">
-    <div class="rotate-message">
-      Please lock your screen orientation<br>
-      & rotate your phone
-    </div>
-  </div>
 
   <div class="business-card">
     <img
@@ -255,7 +234,6 @@
   <script>
     const avatar = document.getElementById('avatar');
     const originalSrc = avatar.src;
-    const overlay = document.getElementById('rotate-overlay');
 
     avatar.addEventListener('click', () => {
       avatar.src = 'images/Avatar_Blink.PNG';
@@ -268,11 +246,6 @@
 
     if (isMobileDevice()) {
       document.body.classList.add('is-mobile');
-
-      if (window.innerHeight > window.innerWidth) {
-        overlay.style.display = 'flex';
-        setTimeout(() => overlay.classList.add('fade-out'), 6000);
-      }
     }
   </script>
 
