@@ -149,11 +149,8 @@
       z-index: 3;
     }
 
-    /* ---- Mobile: always render the card rotated 90°, filling the
-       viewport, regardless of how the phone is physically held ---- */
-
     body.is-mobile {
-      background: #cbe0f2;
+      background: #ffffff;
     }
 
     body.is-mobile .business-card {
@@ -164,7 +161,7 @@
       height: 100dvw;
       max-width: 100dvh;
       max-height: 100dvw;
-      background: linear-gradient(to bottom, #cbe0f2 0%, #c7ddf0 100%);
+      background: #ffffff;
       box-shadow: none;
       display: flex;
       align-items: center;
@@ -177,6 +174,11 @@
       transition: none;
     }
 
+    body.is-mobile .avatar,
+    body.is-mobile .info {
+      transform: translateX(-20px);
+    }
+
     body.is-mobile .business-card::before {
       display: none;
     }
@@ -185,10 +187,6 @@
       display: block;
     }
 
-    /* Only re-apply a hover look on devices that truly have hover
-       (mouse/trackpad) — never on touchscreens, where :hover can get
-       "stuck" after a tap and otherwise causes the card to jump.
-       Also keep the SAME translate as the base state so nothing shifts. */
     @media (hover: hover) and (pointer: fine) {
       body.is-mobile .business-card:hover {
         transform: translate(-50%, -50%) rotate(90deg);
